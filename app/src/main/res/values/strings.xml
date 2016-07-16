@@ -17,4 +17,8 @@
     <string name="idea_title">Idea title</string>
     <string name="idea_description">Idea description</string>
     <string name="add_idea">Add idea</string>
+
+    <string name="notif_1">Hey, user </string>
+    <string name="notif_2"> joined your idea...</string>
+    <string name="notification_title">Somebody joined your idea</string>
 </resources>

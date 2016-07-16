@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 public class NewIdeaActivity extends AppCompatActivity {
 
+
     public static final String TITLE_EXTRA = "titleExtra";
     public static final String DESCRIPTION_EXTRA = "descriptionExtra";
 
