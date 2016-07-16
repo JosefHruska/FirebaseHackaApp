@@ -41,6 +41,9 @@ dependencies {
 
     // Firebase UI
     compile 'com.firebaseui:firebase-ui-database:0.4.0'
+
+    compile 'com.android.support:cardview-v7:24.0.0'
+    compile 'com.android.support:recyclerview-v7:24.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

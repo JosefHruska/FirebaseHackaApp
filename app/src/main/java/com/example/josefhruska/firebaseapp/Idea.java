@@ -8,17 +8,14 @@ public class Idea {
     private String description;
     private String authorName;
     private String photoUrl;
-    private ArrayList<String> contributors;
 
     public Idea () {}
 
-    public Idea (String title, String description, String authorName, String photoUrl,
-                 ArrayList<String> contributorsUID ) {
+    public Idea (String title, String description, String authorName, String photoUrl ) {
         this.title = title;
         this.description = description;
         this.authorName = authorName;
         this.photoUrl = photoUrl;
-        this.contributors = contributorsUID;
     }
 
     public String getTitle() {
@@ -43,14 +40,6 @@ public class Idea {
 
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
-    }
-
-    public ArrayList<String> getContributors() {
-        return contributors;
-    }
-
-    public void setContributors(ArrayList<String> contributors) {
-        this.contributors = contributors;
     }
 
     public String getPhotoUrl() {

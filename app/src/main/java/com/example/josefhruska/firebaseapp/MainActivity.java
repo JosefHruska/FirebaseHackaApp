@@ -1,5 +1,6 @@
 package com.example.josefhruska.firebaseapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,7 +14,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,22 +37,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener {
 
-    public static class IdeaViewHolder extends RecyclerView.ViewHolder {
-        public TextView ideaAuthorTextView;
-        public TextView ideaTitleTextView;
-        public TextView ideaDescriptionTextView;
-        public CircleImageView ideaAuthorImageView;
-
-        public IdeaViewHolder(View v) {
-            super(v);
-
-            ideaAuthorTextView = (TextView) itemView.findViewById(R.id.ideaAuthor);
-            ideaTitleTextView = (TextView) itemView.findViewById(R.id.ideaTitleTextView);
-            ideaDescriptionTextView = (TextView) itemView.findViewById(R.id.ideaDescriptionTextView);
-            ideaAuthorImageView = (CircleImageView) itemView.findViewById(R.id.ideaAuthorImageView);
-        }
-    }
-
+    public static final String IDEA_ID = "ideaID";
     private static final String TAG = "MainActivity";
     public static final String IDEAS_CHILD = "ideas";
     private static final int REQUEST_INVITE = 1;
@@ -72,6 +60,33 @@ public class MainActivity extends AppCompatActivity
     private DatabaseReference mFirebaseDatabaseReference;
     private FirebaseRecyclerAdapter<Idea, IdeaViewHolder> mFirebaseAdapter;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
+
+    public static class IdeaViewHolder extends RecyclerView.ViewHolder {
+        public LinearLayout ideaLinearLayout;
+        public TextView ideaAuthorTextView;
+        public TextView ideaTitleTextView;
+        public TextView ideaDescriptionTextView;
+        public CircleImageView ideaAuthorImageView;
+
+        public IdeaViewHolder(View v) {
+            super(v);
+            ideaAuthorTextView = (TextView) itemView.findViewById(R.id.ideaAuthor);
+            ideaTitleTextView = (TextView) itemView.findViewById(R.id.ideaTitleTextView);
+            ideaDescriptionTextView = (TextView) itemView.findViewById(R.id.ideaDescriptionTextView);
+            ideaAuthorImageView = (CircleImageView) itemView.findViewById(R.id.ideaAuthorImageView);
+
+            ideaLinearLayout = (LinearLayout) itemView.findViewById(R.id.itemLinearLayout);
+            /*ideaLinearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent detailIntent = new Intent(App.get(), IdeaDetailActivity.class);
+                    detailIntent.putExtra(IDEA_ID, idea)
+                    detailIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    App.get().startActivity(detailIntent);
+                }
+            });*/
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +143,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             protected void populateViewHolder(IdeaViewHolder viewHolder,
-                                              Idea idea, int position) {
+                                              Idea idea, final int position) {
                 mProgressBar.setVisibility(ProgressBar.INVISIBLE);
                 viewHolder.ideaAuthorTextView.setText(idea.getAuthorName());
                 viewHolder.ideaDescriptionTextView.setText(idea.getDescription());
@@ -143,6 +158,16 @@ public class MainActivity extends AppCompatActivity
                             .load(idea.getPhotoUrl())
                             .into(viewHolder.ideaAuthorImageView);
                 }
+
+                viewHolder.ideaLinearLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String key = mFirebaseAdapter.getRef(position).getKey();
+                        Intent detailIntent = new Intent(MainActivity.this, IdeaDetailActivity.class);
+                        detailIntent.putExtra(IDEA_ID, key);
+                        startActivity(detailIntent);
+                    }
+                });
             }
         };
 
@@ -166,6 +191,7 @@ public class MainActivity extends AppCompatActivity
 
         mIdeaRecyclerView.setLayoutManager(mLinearLayoutManager);
         mIdeaRecyclerView.setAdapter(mFirebaseAdapter);
+
     }
 
     @Override
@@ -184,7 +210,9 @@ public class MainActivity extends AppCompatActivity
                     //String title = data.getStringExtra(NewIdeaActivity.TITLE_EXTRA);
                     String title = data.getStringExtra(NewIdeaActivity.TITLE_EXTRA);
                     String description = data.getStringExtra(NewIdeaActivity.DESCRIPTION_EXTRA);
-                    Toast.makeText(this, title + '\n' + description, Toast.LENGTH_LONG).show();
+
+                    Idea idea = new Idea(title, description, mUsername, mPhotoUrl );
+                    mFirebaseDatabaseReference.child(IDEAS_CHILD).push().setValue(idea);
                 }
                 break;
         }
