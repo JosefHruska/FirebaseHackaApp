@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -175,4 +176,17 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case RC_NEW_IDEA:
+                if ( resultCode == RESULT_OK ) {
+                    //String title = data.getStringExtra(NewIdeaActivity.TITLE_EXTRA);
+                    String title = data.getStringExtra(NewIdeaActivity.TITLE_EXTRA);
+                    String description = data.getStringExtra(NewIdeaActivity.DESCRIPTION_EXTRA);
+                    Toast.makeText(this, title + '\n' + description, Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+    }
 }
