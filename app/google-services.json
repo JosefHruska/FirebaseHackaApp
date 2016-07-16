@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "768167829722",
+    "firebase_url": "https://fir-hackathon-136f4.firebaseio.com",
+    "project_id": "fir-hackathon-136f4",
+    "storage_bucket": "fir-hackathon-136f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768167829722:android:9bc96fe7afa1a46e",
+        "android_client_info": {
+          "package_name": "com.example.josefhruska.firebaseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768167829722-p6mq5kmljihovgj0hjf8m3bajbqgr69c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.josefhruska.firebaseapp",
+            "certificate_hash": "6389D3554DC834ACAA7462E18CB60137F54DD05E"
+          }
+        },
+        {
+          "client_id": "768167829722-u504i8vdgaapusakfiecn4hchl70f4g0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgIxzAoFcABJl6L-sgmoFQ8I4Aei0E1FE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768167829722-u504i8vdgaapusakfiecn4hchl70f4g0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
