@@ -13,4 +13,8 @@
     <string name="fresh_config">Fresh Config</string>
     <string name="cause_crash">Cause Crash</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="notif_1">Hey, user </string>
+    <string name="notif_2"> joined your idea...</string>
+    <string name="notification_title">Somebody joined your idea</string>
 </resources>
